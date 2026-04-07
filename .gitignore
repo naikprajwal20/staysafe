@@ -1,0 +1,12 @@
+.git/
+.g/
+gradle-9.4.1/
+gradle-9.4.1-bin.zip
+stayease-api.zip
+stayease-api/.gradle-home/
+stayease-web/.next/
+stayease-web/dist/
+stayease-web/dist-prod/
+stayease-web/dist-final/
+stayease-web/*.log
+stayease-api/*.log

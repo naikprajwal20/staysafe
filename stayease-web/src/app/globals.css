@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7efe5;
+  --foreground: #14213d;
+  --muted: #5f6f81;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-border: rgba(20, 33, 61, 0.08);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-mono: "Consolas", "Courier New", monospace;
+}
+
+:root[data-theme="dark"] {
+  --background: #09111f;
+  --foreground: #edf6ff;
+  --muted: #9db1c7;
+  --surface: rgba(9, 17, 31, 0.7);
+  --surface-border: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(45, 212, 191, 0.22), transparent 24%),
+    radial-gradient(circle at top right, rgba(251, 191, 36, 0.18), transparent 22%),
+    linear-gradient(180deg, var(--background), color-mix(in srgb, var(--background), black 6%));
+  color: var(--foreground);
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+.surface {
+  border: 1px solid var(--surface-border);
+  background: var(--surface);
+  backdrop-filter: blur(22px);
+  border-radius: 1.75rem;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+}
+
+.panel {
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 9999px;
+  background: #facc15;
+  border: 2px solid white;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  border-radius: 9999px;
+  background: #facc15;
+  border: 2px solid white;
+}
+
+::selection {
+  background: rgba(45, 212, 191, 0.25);
+}
