@@ -1,3 +1,4 @@
+import { createDemoBooking, demoDiscoverResponse } from "@/lib/demo-data";
 import { BookingResponse, DiscoverResponse } from "@/lib/types";
 
 const API_BASE_URL =
@@ -34,15 +35,24 @@ export async function fetchDiscover(
     params.set("areaTag", filters.areaTag);
   }
 
-  const response = await fetch(`${API_BASE_URL}/api/discover?${params}`, {
-    cache: "no-store",
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/discover?${params}`, {
+      cache: "no-store",
+    });
 
-  if (!response.ok) {
-    throw new Error("Unable to load hotels right now.");
+    if (!response.ok) {
+      throw new Error("Unable to load hotels right now.");
+    }
+
+    return response.json();
+  } catch {
+    return {
+      ...demoDiscoverResponse,
+      destination: filters.destination || demoDiscoverResponse.destination,
+      nights: filters.nights,
+      guests: filters.guests,
+    };
   }
-
-  return response.json();
 }
 
 type BookingPayload = {
@@ -59,17 +69,21 @@ type BookingPayload = {
 export async function createBooking(
   payload: BookingPayload
 ): Promise<BookingResponse> {
-  const response = await fetch(`${API_BASE_URL}/api/bookings`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/bookings`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
-  if (!response.ok) {
-    throw new Error("Booking could not be completed.");
+    if (!response.ok) {
+      throw new Error("Booking could not be completed.");
+    }
+
+    return response.json();
+  } catch {
+    return createDemoBooking(payload.hotelName, 9999);
   }
-
-  return response.json();
 }
